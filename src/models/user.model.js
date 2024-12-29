@@ -52,6 +52,7 @@ const userSchema = new Schema(
     }
 )
 
+// used pre hoook as we want to encrypt the password before saving it
 userSchema.pre("save", async function (next) {
     if(!this.isModified("password")) return next();
 
@@ -59,6 +60,7 @@ userSchema.pre("save", async function (next) {
     next()
 })
 
+//setting the custom methods
 userSchema.methods.isPasswordCorrect = async function(password){
     return await bcrypt.compare(password, this.password)
 }
