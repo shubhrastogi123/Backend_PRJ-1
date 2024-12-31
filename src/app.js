@@ -1,8 +1,8 @@
-import Express  from "express";
+import express  from "express";
 import cors from "cors"
-import cookieParser from "cookies-parser"
+import cookieParser from "cookie-parser"
 
-const app = Express()
+const app = express()
 
 //Now to set the express configurations
 app.use(cors({
@@ -21,5 +21,12 @@ app.use(express.static("public"))
 
 //To securely access and store the cookies on user browser
 app.use(cookieParser())
+
+//routes import
+import userRouter from "./routes/user.routes.js"
+
+//routes declaration
+app.use("/api/v1/users", userRouter) //Now when the user hits the http://localhost:8080/api/v1/users it will automatically redirect to the route defined in the user.routes.js file here - http://localhost:8080/api/v1/users/register
+
 
 export { app }
