@@ -32,7 +32,7 @@ const registerUser = asyncHandler( async (req, res) => {
     }
 
     // check if user already exists: using username nd emails
-    const existedUser = User.findOne({
+    const existedUser = await User.findOne({
         $or: [{ username }, { email }]
     }) 
     if (existedUser) {
@@ -59,10 +59,10 @@ const registerUser = asyncHandler( async (req, res) => {
     const user = await User.create({
         fullName,
         avatar: avatar.url,
-        coverImage: coverimage.url || "",
+        coverImage: coverImage.url || "",
         email,
         password,
-        uername: username.toLowerCase()
+        username: username.toLowerCase()
     })
     // To check if user is created or mot, along with the fileds that we have provided above for db entry MONGOdb automatically enters the _id for each entry do if _id is there means the user is created
     // remove password and refresh token field from response
